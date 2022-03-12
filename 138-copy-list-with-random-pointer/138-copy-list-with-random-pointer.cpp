@@ -26,7 +26,8 @@ private:
     Node* getClonedNode(Node* oldNode) {
         if (oldNode == NULL) { return NULL; }
         
-        if (_visited.count(oldNode) == 0) { 
+        if (_visited.count(oldNode) == 0) 
+        { 
 		    // If the node has not been visited, then create a node which will belong to the cloned list
             _visited[oldNode] = new Node(oldNode->val);            
         }        

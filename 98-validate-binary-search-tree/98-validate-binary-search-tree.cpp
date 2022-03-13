@@ -16,15 +16,18 @@ private:
         
         if(!root) { return true; }      
         
-        if(lo)
-        {
+        // Validate your bounds
+        // As long as the bound exists, each node mush lie within that bound. 
+        if(lo) {
            if(!(root->val > lo->val)) { return false; }
         }
-        if(hi)
-        {
+        if(hi) {
            if(!(hi->val > root->val)) { return false; }
         }
         
+        // Ensure all nodes in the left and right subtrees are within their bounds
+        // For the left subtree, root becomes the upper bound
+        // For the right subtree, root becomes the lower bound
         return isValidBSThelper(root->left, lo, root) and isValidBSThelper(root->right, root, hi);
     }
 public:

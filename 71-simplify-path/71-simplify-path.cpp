@@ -1,22 +1,44 @@
 class Solution {
 public:
     string simplifyPath(string path) {
-        vector<string> components = split(path);       
+        vector<string> components = splitStringstream(path,'/');   // splitting the path at '/' is the key
         string output = merge(components);
         return output;           
     }
 private:
     
     // Function to split the input string in the Unix style to a vector of Strings demlimited by '/'
-    vector<string> split(const string& input, char delimiter= '/') {
+    vector<string> splitStringstream(const string& input, char delimiter) {
         istringstream ss(input);
-        vector<string> output;
-        string item;
-        while(getline(ss, item, delimiter)) {
-            output.push_back(item);
+        vector<string> components;
+        string component;
+        while(getline(ss, component, delimiter)) {
+            components.push_back(component);
         }
-        return output;        
+        return components;        
     }
+    
+    // Function to split the input string in the Unix style to a vector of Strings demlimited by '/'
+    vector<string> splitIterate(const string& input, char delimiter) {
+        
+        vector<string> components;
+        string component = {};
+                
+        for(int i = 0; i < input.size(); i++)
+        {
+            if (input[i] == delimiter) 
+            {
+                components.push_back(component);  
+                component = {};
+            }
+            else
+            {
+                component.push_back(input[i]); // Append the character to the word                
+            }            
+        }    
+        return components;
+    }
+    
     
     // Function to merge the vector of sumcomponents to form the cannonical path
     string merge(vector<string> components) {

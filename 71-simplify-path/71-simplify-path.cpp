@@ -1,7 +1,7 @@
 class Solution {
 public:
     string simplifyPath(string path) {
-        vector<string> components = splitStringstream(path,'/');   // splitting the path at '/' is the key
+        vector<string> components = splitIterate(path,'/');   // splitting the path at '/' is the key
         string output = merge(components);
         return output;           
     }
@@ -36,6 +36,7 @@ private:
                 component.push_back(input[i]); // Append the character to the word                
             }            
         }    
+        components.push_back(component); // if the input doesn't have / at the end (as that is optional)        
         return components;
     }
     
@@ -75,7 +76,7 @@ private:
             ans+=reversed.top()+"/"; reversed.pop(); // appending at the end of the is much faster
         }
         
-        return ans.substr(0,ans.length()-1); // Omiting the last character as it is "/"       
+        return ans.substr(0,ans.length()-1); // Omiting the last character as we are adding an extra / inside the while loop
     }
 
 };

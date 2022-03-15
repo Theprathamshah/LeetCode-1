@@ -35,7 +35,7 @@ private:
                 component.push_back(input[i]); // Append the character to the word                
             }            
         }    
-        components.emplace_back(component); // if the input doesn't have / at the end (as that is optional)        
+        components.push_back(component); // if the input doesn't have / at the end (as that is optional)        
         return components;
     }
     

@@ -42,19 +42,22 @@ private:
     }
     string createCanonicalPath(stack<string> input)
     {
-        if(input.empty())
-        {
-            return "/";
+        string ans="/";
+        stack<string> reversed;
+        
+        if(input.empty()){
+            return ans;
         }
         
-        string output = {};
-        string part;
-        while(!input.empty())
-        {
-            part = input.top(); input.pop();
-            output = "/" + part + output;
+        while(!input.empty()){ 
+            reversed.push(input.top()); input.pop();
         }
-        return output;        
+        
+        while(!reversed.empty()){
+            ans+=reversed.top()+"/"; reversed.pop(); // appending at the end is much faster
+        }
+        
+        return ans.substr(0,ans.length()-1);        
     }
 
 };

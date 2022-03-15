@@ -2,7 +2,7 @@ class Solution {
 public:
     string simplifyPath(string path) {
         vector<string> components = splitIterate(path,'/');   // splitting the path at '/' is the key
-        string output = merge(components);
+        string output = cleanupAndMerge(components);
         return output;           
     }
 private:
@@ -27,7 +27,7 @@ private:
         for(int i = 0; i < input.size(); i++)
         {
             if (input[i] == delimiter) 
-            {
+            {               
                 components.push_back(component);  
                 component = {};
             }
@@ -41,10 +41,11 @@ private:
     }
     
     
-    // Function to merge the vector of sumcomponents to form the cannonical path
-    string merge(vector<string> components) {
+    // Function to cleanup and merge the vector of sumcomponents to form the cannonical path
+    string cleanupAndMerge(vector<string> components) {
                 
         stack<string> mystack;
+        // Filter out unnessasary stuff and process double period (..) to push the cleaned up path to the stack
         for (auto& component : components) {
             
             if(component == "." or component == "") {

@@ -1,7 +1,7 @@
 class Solution {
 public:
     string simplifyPath(string path) {
-        vector<string> components = splitStringstream(path,'/');   // splitting the path at '/' is the key
+        vector<string> components = splitIterate(path,'/');   // splitting the path at '/' is the key
         string output = cleanupAndMerge(components);
         return output;           
     }
@@ -28,14 +28,15 @@ private:
         {
             if (input[i] == delimiter) 
             {               
-                components.push_back(component);  // to move the component instead of making a copy (with push_back)
+                components.emplace_back(component); 
+                component = {};
             }
             else
             {
                 component.push_back(input[i]); // Append the character to the word                
             }            
         }    
-        components.push_back(component); // if the input doesn't have / at the end (as that is optional)        
+        components.emplace_back(component); // if the input doesn't have / at the end (as that is optional)        
         return components;
     }
     

@@ -1,63 +1,59 @@
 class Solution {
 public:
-    string simplifyPath(string path)         
-    {
-        vector<string> components = split(path, '/');
-        
-        stack<string> mystack;
-        for (auto& component : components)
-        {
-            
-            if(component == "." or component == "")
-            {
-                continue;
-            }
-            else if (component == "..")
-            {
-                if(!mystack.empty())
-                {
-                    mystack.pop();
-                }
-            }
-            else
-            {
-                mystack.push(component);  
-            }
-        }
-        string output = createCanonicalPath(mystack);
-        return output;
+    string simplifyPath(string path) {
+        vector<string> components = split(path);       
+        string output = merge(components);
+        return output;           
     }
 private:
-    vector<string> split(const string& input, char delimiter)
-    {
+    
+    // Function to split the input string in the Unix style to a vector of Strings demlimited by '/'
+    vector<string> split(const string& input, char delimiter= '/') {
         istringstream ss(input);
         vector<string> output;
         string item;
-        while(getline(ss, item, delimiter))
-        {
+        while(getline(ss, item, delimiter)) {
             output.push_back(item);
         }
-        return output;
-        
+        return output;        
     }
-    string createCanonicalPath(stack<string> input)
-    {
-        string ans="/";
-        stack<string> reversed;
+    
+    // Function to merge the vector of sumcomponents to form the cannonical path
+    string merge(vector<string> components) {
+                
+        stack<string> mystack;
+        for (auto& component : components) {
+            
+            if(component == "." or component == "") {
+                continue;
+            }
+            else if (component == "..") {
+                if(!mystack.empty()) {
+                    mystack.pop();
+                }
+            }
+            else {
+                mystack.push(component);  
+            }
+        }
         
-        if(input.empty()){
+        string ans="/";
+        
+        // Use an additional stack to improve time complexity while creating the cannonical path
+        stack<string> reversed;
+        if(mystack.empty()){
             return ans;
         }
         
-        while(!input.empty()){ 
-            reversed.push(input.top()); input.pop();
+        while(!mystack.empty()){ 
+            reversed.push(mystack.top()); mystack.pop();
         }
         
         while(!reversed.empty()){
-            ans+=reversed.top()+"/"; reversed.pop(); // appending at the end is much faster
+            ans+=reversed.top()+"/"; reversed.pop(); // appending at the end of the is much faster
         }
         
-        return ans.substr(0,ans.length()-1);        
+        return ans.substr(0,ans.length()-1); // Omiting the last character as it is "/"       
     }
 
 };

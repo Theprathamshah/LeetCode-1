@@ -28,15 +28,15 @@ private:
         {
             if (input[i] == delimiter) 
             {               
-                components.push_back(component);  
-                component = {};
+                components.emplace_back(component);  
+                //component = {};
             }
             else
             {
                 component.push_back(input[i]); // Append the character to the word                
             }            
         }    
-        components.push_back(component); // if the input doesn't have / at the end (as that is optional)        
+        components.emplace_back(component); // if the input doesn't have / at the end (as that is optional)        
         return components;
     }
     

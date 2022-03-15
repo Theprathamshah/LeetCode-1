@@ -28,8 +28,7 @@ private:
         {
             if (input[i] == delimiter) 
             {               
-                components.emplace_back(component);  
-                //component = {};
+                components.push_back(component);  // to move the component instead of making a copy (with push_back)
             }
             else
             {

@@ -1,7 +1,7 @@
 class Solution {
 public:
     string simplifyPath(string path) {
-        vector<string> components = splitIterate(path,'/');   // splitting the path at '/' is the key
+        vector<string> components = splitStringstream(path,'/');   // splitting the path at '/' is the key
         string output = cleanupAndMerge(components);
         return output;           
     }

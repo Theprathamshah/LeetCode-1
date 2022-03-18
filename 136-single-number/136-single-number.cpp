@@ -4,7 +4,7 @@ public:
         
         int result = 0;
         for (auto& num : nums) {            
-            result = result ^ num;            
+            result ^= num;            
         }
         
         //  every element appears twice will be zeroed above.

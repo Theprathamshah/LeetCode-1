@@ -1,41 +1,20 @@
 class Solution {
-    
-private:
-    int maxPotential(int n) { return n * 26; }
 public:
     string getSmallestString(int n, int k) {
-        string answer = {};     
-        int maxWithMinus1, maxValdWithA, excess;
         
-        for (int i = 0; i < n; i++){
+        string answer(n,'a');
+        k = k - n;
+        int val;
+        while(k > 0) {
             
-            // I want to select the Select 'a' always..
-            // this is the max allowed remainder.
-            // if the target is greater than maxAllowed, then we can choose a;
-            maxWithMinus1 = maxPotential(n-i-1);
-            maxValdWithA = maxWithMinus1 + 1;
+            val = min(k,25);
             
-            if (k > maxValdWithA) { // can't use a
-                
-                excess = k - maxWithMinus1;                
-                k -= excess;                
-                answer.push_back(excess - 1 + 'a');
-                
-                if(i != n-1) {
-                    answer.append(string (n-i-1, 'z'));
-                    return answer;                    
-                }                
-            }
-            else
-            {
-                k--;
-                answer.push_back('a');
-            }
+            answer[--n] += val;
+            k = k - val;
+            
+            
         }
-        
-        
-        
         return answer;
+        
     }
-    
 };

@@ -3,14 +3,11 @@ public:
     string getSmallestString(int n, int k) {
         
         string answer(n,'a');
-        k = k - n;
+        k -= n;
         int val;
-        while(k > 0) {
-            
-            val = min(k,25);
-            
-            answer[--n] += val;
-            k = k - val;
+        while(k > 0) {            
+            answer[--n] += min(k,25);
+            k -= min(k,25);
             
             
         }

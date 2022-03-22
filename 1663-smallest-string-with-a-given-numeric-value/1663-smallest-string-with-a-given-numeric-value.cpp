@@ -17,9 +17,9 @@ public:
             
             if (k > maxValdWithA) { // can't use a
                 
-                excess = k - maxWithMinus1;                
-                k -= excess;                
-                answer.push_back(excess - 1 + 'a');
+                // excess = k - maxWithMinus1;                
+                // k -= excess;                
+                answer.push_back(k - maxWithMinus1 - 1 + 'a');
                 
                 if(i != n-1) {
                     answer.append(string (n-i-1, 'z'));

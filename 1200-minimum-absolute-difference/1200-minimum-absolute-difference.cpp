@@ -1,8 +1,7 @@
 class Solution {
 public:
-    vector<vector<int>> minimumAbsDifference(vector<int>& arr) {
+    vector<vector<int>> minimumAbsDifference(vector<int>& sortedArr) {
         
-        vector<int>& sortedArr = arr;
         sort(sortedArr.begin(), sortedArr.end()); // O(NlogN)
         
         // find the minPositiveDelta

@@ -23,7 +23,7 @@ public:
                 
                 if(i != n-1) {
                     answer.append(string (n-i-1, 'z'));
-                    break;                    
+                    return answer;                    
                 }                
             }
             else

@@ -17,12 +17,15 @@ public:
             
             if (k > maxValdWithA) { // can't use a
                 
-                excess = k - maxWithMinus1;
-                
-                k -= excess;
-                
+                excess = k - maxWithMinus1;                
+                k -= excess;                
                 answer.push_back(excess - 1 + 'a');
                 
+                if(i != n-1) {
+                    string small(n-i-1, 'z'); // s == "aaaaa"
+                    answer.append(small);
+                    break;                    
+                }                
             }
             else
             {

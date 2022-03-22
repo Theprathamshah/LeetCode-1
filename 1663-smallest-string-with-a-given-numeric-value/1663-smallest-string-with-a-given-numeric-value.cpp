@@ -22,8 +22,8 @@ public:
                 answer.push_back(excess - 1 + 'a');
                 
                 if(i != n-1) {
-                    string small(n-i-1, 'z'); // s == "aaaaa"
-                    answer.append(small);
+                    // ; // s == "aaaaa"
+                    answer.append(string (n-i-1, 'z'));
                     break;                    
                 }                
             }

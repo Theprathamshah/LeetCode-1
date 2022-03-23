@@ -8,7 +8,7 @@ public:
             }
             else
             {
-                target /= 2;                               
+                target >>= 1;                               
             }
             steps++;
         }

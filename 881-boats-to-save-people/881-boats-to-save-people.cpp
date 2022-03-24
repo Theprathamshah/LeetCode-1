@@ -10,25 +10,15 @@ public:
         int smallIdx = people.size() - 1;
         
         int nBoats = 0;
-        while(bigIdx <= smallIdx) {
-            
-            if ((people[bigIdx] + people[smallIdx] <= limit) and (bigIdx + 1 <= smallIdx)) {
-                
-                bigIdx++;  
+        while(bigIdx <= smallIdx) {            
+            if (people[bigIdx] + people[smallIdx] <= limit) {                
                 smallIdx--;
                 
             }
-            else if(people[bigIdx] <= limit)
-            {
-                bigIdx++;                
-            }
-            else { // people[smallIdx] <= limit
-                smallIdx--;                
-            }
+            bigIdx++;                                  
             nBoats++;
         }
         return nBoats;
-        
     }
 };
 

@@ -23,11 +23,9 @@ public:
         }
         
         vector<int> ans;
-        for (int count = 0; count < k; count++) {
-            ans.emplace_back(weakest.begin()->second);
-            weakest.erase(weakest.begin());            
+        for (auto& [idx, rIdx] : weakest) {
+            ans.push_back(rIdx);
         }
-        
         return ans;
         
     }

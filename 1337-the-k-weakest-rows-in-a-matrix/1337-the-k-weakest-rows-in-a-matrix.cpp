@@ -17,6 +17,9 @@ public:
         
         for (int rIdx = 0; rIdx < mat.size(); rIdx++) {
             weakest.insert(IdxOfFirstZero(mat, rIdx));
+            if (weakest.size() > k) { // remove last item if exceeding size k
+                weakest.erase(--weakest.end());  
+            }  
         }
         
         vector<int> ans;

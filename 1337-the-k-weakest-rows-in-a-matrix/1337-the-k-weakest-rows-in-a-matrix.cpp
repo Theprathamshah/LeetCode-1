@@ -21,7 +21,7 @@ public:
         
         vector<int> ans;
         for (int count = 0; count < k; count++) {
-            ans.push_back(weakest.begin()->second);
+            ans.emplace_back(weakest.begin()->second);
             weakest.erase(weakest.begin());            
         }
         

@@ -1,52 +1,39 @@
+
+// typedef pair<int,int> pii; // <firstZero, rowIndex>
+
 class Solution {
     
 private:
-    pair<int,int> IdxOfFirstZero(vector<vector<int>>& mat, int rIdx) {
-               
-        vector<int> row = mat[rIdx];     
-        // find position of first 0 by binary search  
-        auto first0 = lower_bound(row.begin(), row.end(), 0, greater<int>());       
-        return make_pair(first0 - row.begin() , rIdx);               
-    }
     
+        int firstZeroIdx(vector<vector<int>>& mat, int rowIndex) {        
+        vector<int> row = mat[rowIndex];        
+        auto it = lower_bound(row.begin(), row.end(), 0, greater<int>()); // this will return the iterator to the 1st zero in this vector
+        
+        // return [it - row.begin(), rowIndex];
+        return it - row.begin();
+        
+    }
     
 public:
     vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
+                
+        set<pair<int,int>> weakest; // smallest in the front..
         
-        set<pair<int,int>> weakest; // pair < nOnes, rowIdx>. We insert into a set so the lowest nOnes are early in the set. When we pop, then the lowest ones will come out first..
-        
-        for (int rIdx = 0; rIdx < mat.size(); rIdx++) {
-            weakest.insert(IdxOfFirstZero(mat, rIdx));
-            if (weakest.size() > k) { // remove last item if exceeding size k
-                weakest.erase(--weakest.end());  
-            }  
+        for(int rowIndex = 0; rowIndex < mat.size(); rowIndex++) {
+            weakest.emplace(firstZeroIdx(mat, rowIndex),rowIndex); // emplace coz we can directly move whatever is returned into the answer..
+            if(weakest.size() > k) { // we only want smallest k for the final answer...
+                weakest.erase(--weakest.end()); //remove the last element
+            }
         }
         
-        vector<int> ans;
-        for (auto& [idx, rIdx] : weakest) {
-            ans.push_back(rIdx);
-        }
-        return ans;
+        vector<int> answer;
+        
+        // weakest will have k elements..
+        for (auto& [irstZero, rowIndex] : weakest) {
+            answer.push_back(rowIndex);
+        }            
+        return answer;
+        
         
     }
 };
-
-/*
-
-
-n cols  -> for every row (r), binary serach to find the index (log n). 
-
-    we can store (index, row_number) in a set or min_heap... (insertion in a set or min_heap is log(n) i guess..)
-    
-    then we pop.. k times to give minimum indices...
-
-m rows -> sort in m log m
-
-
-
-[1,1,0,0,0]
-
-
-
-
-*/

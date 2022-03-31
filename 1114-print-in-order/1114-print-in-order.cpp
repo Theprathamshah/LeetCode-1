@@ -10,7 +10,7 @@ public:
         printFirst();
         
         isfirstDone = true;
-        gLock.unlock();
+        // gLock.unlock();
         cv.notify_all();
     }
 
@@ -23,7 +23,7 @@ public:
         printSecond();
         
         isSecondDone = true;
-        gLock.unlock();
+        // gLock.unlock();
         cv.notify_all();
     }
 
@@ -35,7 +35,7 @@ public:
         // printThird() outputs "third". Do not change or remove this line.
         printThird();
         
-        gLock.unlock();
+        // gLock.unlock();
         cv.notify_all();
     }
 private:

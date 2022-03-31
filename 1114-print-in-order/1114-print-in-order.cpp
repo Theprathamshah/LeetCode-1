@@ -1,6 +1,7 @@
+typedef int semaphore;
 class Foo {
 public:
-    Foo():isfirstDone(false),isSecondDone(false) {  }
+    Foo():counter(0) {  }
 
     void first(function<void()> printFirst) {
         
@@ -9,38 +10,38 @@ public:
         // printFirst() outputs "first". Do not change or remove this line.
         printFirst();
         
-        isfirstDone = true;
-        // gLock.unlock();
+        counter++;
+        gLock.unlock();
         cv.notify_all();
     }
 
     void second(function<void()> printSecond) {
         
         auto gLock = unique_lock<mutex>(_m);
-        cv.wait(gLock, [this](){return isfirstDone;});
+        cv.wait(gLock, [this](){return (counter == 1);});
         
         // printSecond() outputs "second". Do not change or remove this line.
         printSecond();
         
-        isSecondDone = true;
-        // gLock.unlock();
+        counter++;
+        gLock.unlock();
         cv.notify_all();
     }
 
     void third(function<void()> printThird) {
         
         auto gLock = unique_lock<mutex>(_m);
-        cv.wait(gLock, [this](){return isSecondDone;});
+        cv.wait(gLock, [this](){return (counter == 2);});
         
         // printThird() outputs "third". Do not change or remove this line.
         printThird();
         
-        // gLock.unlock();
+        gLock.unlock();
         cv.notify_all();
     }
 private:
     mutex _m;
     condition_variable cv;    
-    bool isfirstDone;
-    bool isSecondDone;
+    semaphore counter;
+    
 };

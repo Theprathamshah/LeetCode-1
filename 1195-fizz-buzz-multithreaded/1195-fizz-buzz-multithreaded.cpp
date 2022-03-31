@@ -14,14 +14,12 @@ public:
     void fizz(function<void()> printFizz) {
         while (count <= n) {
             unique_lock<mutex> lock(m);
-//             cv.wait(lock, [&](){ return count <= n and (count % 3 != 0 or count % 5 == 0) ? false : true;});     
-//             if (count > n) break;
-            
-            if(count % 3 != 0 or count % 5 == 0) {
-                cv.wait(lock);
-                continue;
-            }
-            
+            cv.wait(lock, [&](){ return count <= n and (count % 3 != 0 or count % 5 == 0) ? false : true;});     
+            if (count > n) break;
+            // if(count % 3 != 0 or count % 5 == 0) {
+            //     cv.wait(lock);
+            //     continue;
+            // }
             printFizz();
             ++count;
             lock.unlock();
@@ -33,14 +31,12 @@ public:
     void buzz(function<void()> printBuzz) {
         while (count <= n) {
             unique_lock<mutex> lock(m);
-            // cv.wait(lock, [&](){ return count <= n and (count % 5 != 0 or count % 3 == 0) ? false : true;});            
-            // if (count > n) break;
-            
-            if(count % 3 == 0 or count % 5 != 0) {
-                cv.wait(lock);
-                continue;
-            }
-            
+            cv.wait(lock, [&](){ return count <= n and (count % 5 != 0 or count % 3 == 0) ? false : true;});            
+            if (count > n) break;
+            // if(count % 3 == 0 or count % 5 != 0) {
+            //     cv.wait(lock);
+            //     continue;
+            // }
             printBuzz();
             ++count;
             lock.unlock();
@@ -52,12 +48,12 @@ public:
 	void fizzbuzz(function<void()> printFizzBuzz) {
         while (count <= n) {
             unique_lock<mutex> lock(m);
-            // cv.wait(lock, [&](){ return count <= n and (count % 5 != 0 or count % 3 != 0) ? false : true;});        
-            // if (count > n) break;
-            if(count % 3 != 0 or count % 5 != 0) {
-                cv.wait(lock);
-                continue;
-            }
+            cv.wait(lock, [&](){ return count <= n and (count % 5 != 0 or count % 3 != 0) ? false : true;});        
+            if (count > n) break;
+            // if(count % 3 != 0 or count % 5 != 0) {
+            //     cv.wait(lock);
+            //     continue;
+            // }
             printFizzBuzz();
             ++count;
             lock.unlock();
@@ -69,12 +65,12 @@ public:
     void number(function<void(int)> printNumber) {
         while (count <= n) {
             unique_lock<mutex> lock(m);
-            // cv.wait(lock, [&](){ return count <= n and (count % 5 == 0 or count % 3 == 0) ? false : true;});            
-            // if (count > n) break;
-            if(count % 3 == 0 or count % 5 == 0) {
-                cv.wait(lock);
-                continue;
-            }
+            cv.wait(lock, [&](){ return count <= n and (count % 5 == 0 or count % 3 == 0) ? false : true;});            
+            if (count > n) break;
+            // if(count % 3 == 0 or count % 5 == 0) {
+            //     cv.wait(lock);
+            //     continue;
+            // }
             printNumber(count);
             ++count;
             lock.unlock();

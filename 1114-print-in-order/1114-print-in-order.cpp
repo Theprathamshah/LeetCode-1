@@ -17,7 +17,7 @@ public:
     void second(function<void()> printSecond) {
         
         auto gLock = unique_lock<mutex>(_m);
-        cv.wait(gLock, [&](){return isfirstDone;});
+        cv.wait(gLock, [this](){return isfirstDone;});
         
         // printSecond() outputs "second". Do not change or remove this line.
         printSecond();
@@ -30,7 +30,7 @@ public:
     void third(function<void()> printThird) {
         
         auto gLock = unique_lock<mutex>(_m);
-        cv.wait(gLock, [&](){return isSecondDone;});
+        cv.wait(gLock, [this](){return isSecondDone;});
         
         // printThird() outputs "third". Do not change or remove this line.
         printThird();

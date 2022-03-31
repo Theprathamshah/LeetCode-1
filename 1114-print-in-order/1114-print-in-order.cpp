@@ -1,9 +1,6 @@
 class Foo {
 public:
-    Foo() {
-        isfirstDone = false;
-        isSecondDone = false;        
-    }
+    Foo():isfirstDone(false),isSecondDone(false) {  }
 
     void first(function<void()> printFirst) {
         

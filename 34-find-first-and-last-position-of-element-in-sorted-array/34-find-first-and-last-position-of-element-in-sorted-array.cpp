@@ -65,14 +65,38 @@ private:
 public:
     vector<int> searchRange(vector<int>& nums, int target) { // O(logN)        
         
-        auto answer = vector<int>{-1,-1};
-        bool isPresent = found(nums,target);
-        if(!isPresent) {
-            return answer;
-        }
-        answer[0] = getLowerBoundIdx(nums,target);
-        answer[1] = getUpperBoundIdx(nums,target);
+        int lb = -1, ub = -1;
         
-        return answer;
+        int sIdx = 0;
+        int eIdx = nums.size() - 1;
+        int mIdx = -1;
+        
+        while(sIdx <= eIdx) {
+            mIdx = sIdx + (eIdx - sIdx) / 2;
+                        
+            if (nums[mIdx] < target) { // unfavorable
+                sIdx = mIdx + 1;
+            }
+            else {  // favroable. goal is to push sIdx one past the LB
+                eIdx = mIdx - 1;            
+            }   
+        }
+        lb = sIdx; // eIdx was posted at 1 less than LB
+        
+        eIdx = nums.size() - 1;
+        while(sIdx <= eIdx) {
+            mIdx = sIdx + (eIdx - sIdx) / 2;
+                        
+            if (nums[mIdx] > target) { // unfavorable
+                eIdx = mIdx - 1;
+            }
+            else { // favroable. goal is to push sIdx one past the UB                
+                sIdx = mIdx + 1;
+            }   
+        }
+        ub = eIdx;
+        
+        return lb == ub+1 ? vector<int> {-1,-1} : vector<int> {lb,ub};
+        
     }
 };

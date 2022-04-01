@@ -33,14 +33,14 @@ private:
         while(sIdx <= eIdx) {
             mIdx = sIdx + (eIdx - sIdx) / 2;
                         
-            if (nums[mIdx] < target) { 
+            if (nums[mIdx] < target) { // unfavorable
                 sIdx = mIdx + 1;
             }
-            else { 
+            else {  // favroable. goal is to push sIdx one past the LB
                 eIdx = mIdx - 1;            
             }   
         }
-        return sIdx;
+        return sIdx; // eIdx was posted at 1 less than LB
     }
     
     int getUpperBoundIdx(vector<int>& nums, int target) { // O(logN)        

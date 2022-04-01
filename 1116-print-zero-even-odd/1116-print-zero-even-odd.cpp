@@ -1,13 +1,10 @@
 class ZeroEvenOdd {
 private:
     int n;
-    int counter = 1; // CS
     mutex m;
     condition_variable cv;
-    
-    bool evenTrigger = false;  // even and not zero.. do thing.. not toggle and zero
-    bool zeroTrigger = true; // zero .. do thing.. not zero..
-
+    bool print_zero = true;
+    int int_to_print = 1;
 public:
     ZeroEvenOdd(int n) {
         this->n = n;
@@ -15,63 +12,45 @@ public:
 
     // printNumber(x) outputs "x", where x is an integer.
     void zero(function<void(int)> printNumber) {
-        
-        while(counter <= n) {
-            
-            auto uLock = unique_lock<mutex>(m);
-            cv.wait(uLock,[this]() { return (zeroTrigger); }); // alterbatively, could have cv.wait(uLock,[this]() { return (zeroTrigger and counter <= n); }); and removed the if check below, but for some reason leetcode says TLE.. only this style works..
-            
-            if(counter <= n) {                
-                printNumber(0);                                             
-            }   
-            zeroTrigger = false;   
-            uLock.unlock();            
-            cv.notify_all();            
+        while (int_to_print <= n) {
+            unique_lock<mutex> lk(m);
+            cv.wait(lk, [this]{return print_zero;});
+            if (int_to_print <= n)
+                printNumber(0);
+            print_zero = false;
+            lk.unlock();
+            cv.notify_all();
         }
-        return;
-        
-        
+        return ;
     }
 
     void even(function<void(int)> printNumber) {
-        
-        while(counter <= n) {
-        
-            auto uLock = unique_lock<mutex>(m);
-                
-            cv.wait(uLock,[this]() { return (!zeroTrigger and evenTrigger);});
-    
-            if(counter <= n) {                
-                printNumber(counter++);                
-            }  
-            
-            zeroTrigger = true;     
-            evenTrigger = false;
-            uLock.unlock();
+        while (int_to_print <= n) {
+            unique_lock<mutex> lk(m);
+            cv.wait(lk, [this]{return !print_zero && int_to_print % 2 == 0;});
+            if (int_to_print <= n) {
+                printNumber(int_to_print);
+                ++int_to_print;
+                print_zero = true;
+            }
+            lk.unlock();
             cv.notify_all();
         }
-        return;
-
+        return ;
     }
 
     void odd(function<void(int)> printNumber) {
-        
-        while(counter <= n) {
-        
-            auto uLock = unique_lock<mutex>(m);
-            
-            cv.wait(uLock, [this]() {return (!zeroTrigger and !evenTrigger);});
-
-            if(counter <= n) {                
-                printNumber(counter++);                
+        while (int_to_print <= n) {
+            unique_lock<mutex> lk(m);
+            cv.wait(lk, [this]{return !print_zero && int_to_print % 2 != 0;});
+            if (int_to_print <= n) {
+                printNumber(int_to_print);
+                ++int_to_print;
+                print_zero = true;
             }
-            zeroTrigger = true;     
-            evenTrigger = true;
-            
-            uLock.unlock();
+            lk.unlock();
             cv.notify_all();
         }
-        return;
+        return ;
     }
 };
-

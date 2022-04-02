@@ -1,44 +1,52 @@
+/*
+High level idea
+
+This is the same problem as a palindrome problem with one slight twist.
+
+The twist is that, if at any point the lo and high characters don't match, we don't just give up. 
+
+Instead, we give the string another attempt. Now, we have two options. 
+
+Either we move low by 1 to the right keeping hi at the same place. And do the palindome check again.
+Or we move high by 1 to the left keeping lo at the same place. And do the palindome check again. 
+
+now the question is which option should we choose? the answer is, we should try both and if any of them gives the answer we are good..
+
+now one caveat here. now there are no more chances left. if any of the characters don't match, we give up. as we already gave the string one chance.
+
+*/
+
+
 class Solution {
 private:
-    bool helper(string& s, int l, int h, bool chanceLeft = true) {
+    bool canPalindrome(string& s, int low, int high, bool chanceLeft = true) {
         
-        // Bas condition
-        if (l >= h) {
-            return true;
-        }
-        
-        bool answer = false;
-        if (s[l] == s[h]) 
-        { // If the first and last characters match, we rely on recursion to get us the answer to the smaller problem
-
-            answer |= helper(s,l+1,h-1,chanceLeft); 
-        }
-        else if (!chanceLeft) 
-        { // If the first and last characters DON'T match, and we have no chance left, then we don't need to go any further and we can directly return false. 
-            return false;
-        }
-        else 
-        {   // If the first and last characters DON'T match, but we have a chance left, then we will explore both cases. Either one returns true, we are good!
-            
-            chanceLeft = false;                
-            if (s[l+1] == s[h]) 
-            { // CASE I - if moving first by 1 to the right and last match, then we will explore this branch
-                answer |= helper(s, l+1, h, chanceLeft);
-            }        
-            if (s[l] == s[h-1]) 
-            {  // CASE II - if moving last by 1 to the left and first match, then we will "ALSO" explore this branch
-                answer |= helper(s, l, h-1, chanceLeft);
-            }            
-        }
-        return answer;        
+        bool answer = true;
+        while (low < high) 
+        {
+            if (s[low] == s[high])
+            { // if the string is a perfect palindrome, then we will keep comparing and at the end gracefully exit this loop
+                
+                low++; high--; 
+            }  
+            else if (!chanceLeft) 
+            {
+                answer = false;
+                break;              
+            }
+            else // this means, th 
+            {
+                chanceLeft = false;
+                answer = canPalindrome(s, low + 1, high, chanceLeft) || canPalindrome(s, low, high - 1, chanceLeft);    
+                break;
+            }
+        }        
+        return answer;            
     }
 public:
-    bool validPalindrome(string s) {
-        
-        int l = 0;
-        int h = s.size() - 1;
-        
-        return helper(s,l,h);
+    bool validPalindrome(string s) {        
+        int low = 0;
+        int high = s.size() - 1;        
+        return canPalindrome(s,low,high);
      }
 };
-

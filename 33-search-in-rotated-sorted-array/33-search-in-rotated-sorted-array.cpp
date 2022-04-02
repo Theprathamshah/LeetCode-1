@@ -2,47 +2,40 @@ class Solution {
 public:
     int search(vector<int>& nums, int target) {
         
-        int s = 0;
-        int e = nums.size() - 1;
-        int m;
+        int lo = 0;
+        int hi = nums.size() - 1;
+        int mid;
         
-        while(s <= e) {
+        int answer = -1;
+        while (lo <= hi) {
             
-            m = s + (e - s) / 2;
+            mid = lo + (hi-lo)/2;
             
-            if (nums[m] == target) { return m; }
+            if(nums[mid] == target) {
+                answer = mid;
+                break;
+            }
             
-            if (nums[s] <= nums[m]) { // means we are sorted b/w s to m
-            
-                if(target >= nums[s] and target < nums[m]) { // definatey target is between s and m
-                    e = m - 1;                    
+            if (nums[lo] <= nums[mid]) { // lo --> mid is sorted
+                
+                if (target < nums[mid] and target >= nums[lo]) { // target is definately to the left of mid
+                    hi = mid - 1;
                 }
-                else if (target < nums[s]) { // this means the pivot is likly on the right side.. also.. as target is less than start it is likely going to be smallrt than mid too..
-                    s = m + 1;
-                }
-                else
+                else // in all other cases, target will be in the right..
                 {
-                     s = m + 1;
-                    // assert(0);
+                    lo = mid + 1;
                 }
             }
-            else // we must be sorted b/w m to end
+            else //  mid --> hi is sorted
             {
-                if (target > nums[m] and target <= nums[e]) {
-                    s = m + 1;                    
+                if (target > nums[mid] and target <= nums[hi]) { // target is definately to the right of mid
+                    lo = mid + 1;                
                 }
-                else if (target >nums[e] ) // then it 
-                {
-                    e = m - 1;
-                 }
-                else
-                {
-                    e = m - 1;
-                    // assert(0);
+                else {
+                    hi = mid - 1;
                 }
-            }
+            }           
         }
-        return -1;
-        
+        return answer;        
     }
 };

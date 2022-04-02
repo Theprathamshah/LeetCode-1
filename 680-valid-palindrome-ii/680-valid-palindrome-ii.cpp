@@ -25,7 +25,7 @@ private:
                 bool option2 = canPalindrome(s, low, high - 1, chanceLeft);
                 
                 // Either one is a palindrome. We are good!                
-                answer = option1 || option2;
+                answer = option1 |option2;
                 return answer;
             }
 

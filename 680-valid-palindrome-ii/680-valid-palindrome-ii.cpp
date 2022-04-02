@@ -1,22 +1,3 @@
-/*
-High level idea
-
-This is the same problem as a palindrome problem with one slight twist.
-
-The twist is that, if at any point the lo and high characters don't match, we don't just give up. 
-
-Instead, we give the string another attempt. Now, we have two options. 
-
-Either we move low by 1 to the right keeping hi at the same place. And do the palindome check again.
-Or we move high by 1 to the left keeping lo at the same place. And do the palindome check again. 
-
-now the question is which option should we choose? the answer is, we should try both and if any of them gives the answer we are good..
-
-now one caveat here. now there are no more chances left. if any of the characters don't match, we give up. as we already gave the string one chance.
-
-*/
-
-
 class Solution {
 private:
     bool canPalindrome(string& s, int low, int high, bool chanceLeft = true) {
@@ -24,22 +5,32 @@ private:
         bool answer = true;
         while (low < high) 
         {
-            if (s[low] == s[high])
-            { // if the string is a perfect palindrome, then we will keep comparing and at the end gracefully exit this loop
+            
+            if (s[low] != s[high]) {   // mismatch happened
+            
+                if (!chanceLeft) 
+                { // We used up our chance and we had another mimsmtch, so definately not a palindrome :()                    
+                    return false;
+                }
                 
-                low++; high--; 
-            }  
-            else if (!chanceLeft) 
-            {
-                answer = false;
-                break;              
-            }
-            else // this means, th 
-            {
+                // Ok, so this was the first mismatch. But as only 1 chance was allowed, no no more chances are left!
                 chanceLeft = false;
-                answer = canPalindrome(s, low + 1, high, chanceLeft) || canPalindrome(s, low, high - 1, chanceLeft);    
-                break;
+                
+                
+                // Going forward, we have two options:                
+                // Option 1: we move low to the right by 1 and see if by doing that we get a palindrome                
+                bool option1 = canPalindrome(s, low + 1, high, chanceLeft);
+                
+                // Option 2: we move hight to the left by 1 and see if by doing that we get a palindrome                
+                bool option2 = canPalindrome(s, low, high - 1, chanceLeft);
+                
+                // Either one is a palindrome. We are good!                
+                answer = option1 || option2;
+                return answer;
             }
+
+            // If no mismatch we just keep incrementing low and decrementing high like we will do in a normal palindrome check.
+            low++; high--; 
         }        
         return answer;            
     }

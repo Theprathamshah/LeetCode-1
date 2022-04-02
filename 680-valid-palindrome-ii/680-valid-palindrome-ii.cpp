@@ -24,8 +24,6 @@ private:
             }
             
         }
-        
-        
         return answer;        
     }
 public:
@@ -38,5 +36,7 @@ public:
      }
 };
 
+// "aguokepatgbnvfqmgmlcupuufxoohdfpgjdmysgvhmvffcnqxjjxqncffvmhvgsymdjgpfdhooxfuupuculmgmqfvnbgtapekouga"
+// "eeccccbebaeeabebccceea"
 // "aguokepatgbnvfqmgmlcupuufxoohdfpgjdmysgvhmvffcnqxjjxqncffvmhvgsymdjgpfdhooxfuupuculmgmqfvnbgtapekouga"
 // "eeccccbebaeeabebccceea"

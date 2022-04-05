@@ -2,27 +2,30 @@ class Solution {
 public:
     int maxArea(vector<int>& height) {
         
-        int sIdx = 0;
-        int eIdx = height.size() - 1;
+        int maxArea = -1;        
+        int leftWall = 0;
+        int rightWall = height.size() - 1;
         
-        int hight, width, maxAmount = 0;
-        while(sIdx < eIdx) {
+        int currArea = -1;
+        int currHeight;
+        int currWidth; 
+        while(leftWall < rightWall) {
             
-            hight = min(height[sIdx], height[eIdx]);
-            width = eIdx - sIdx;
+            currHeight = min(height[leftWall], height[rightWall]);
             
-            maxAmount = max(maxAmount, hight*width);
-            
-            if (height[sIdx] < height[eIdx]) {
-                sIdx++;
+            if (height[leftWall] < height[rightWall]) {
+                currHeight = height[leftWall];
+                leftWall++;
             }
-            else
-            {
-                eIdx--;
-            }            
+            else {
+                currHeight = height[rightWall];
+                rightWall--;
+            }
+            currWidth = rightWall - leftWall + 1;
+            
+            maxArea = max(maxArea, currHeight * currWidth);
+            
         }
-        return maxAmount;
-        
-        
+        return maxArea;
     }
 };

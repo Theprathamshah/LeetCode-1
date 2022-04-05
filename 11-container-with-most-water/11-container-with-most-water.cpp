@@ -8,22 +8,20 @@ public:
         
         int currArea = -1;
         int currHeight;
-        int currWidth; 
-        while(leftWall < rightWall) {
-            
-            currHeight = min(height[leftWall], height[rightWall]);
-            
+        int currWidth = rightWall - leftWall;
+        while(leftWall < rightWall) {            
+          
             if (height[leftWall] < height[rightWall]) {
                 currHeight = height[leftWall];
                 leftWall++;
             }
-            else {
-                currHeight = height[rightWall];
-                rightWall--;
+            else
+            {
+                 currHeight = height[rightWall];
+                 rightWall--;
             }
-            currWidth = rightWall - leftWall + 1;
-            
             maxArea = max(maxArea, currHeight * currWidth);
+            currWidth--;
             
         }
         return maxArea;

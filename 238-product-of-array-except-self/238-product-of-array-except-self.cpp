@@ -15,9 +15,10 @@ public:
         }
         
         vector<int> finalProductExceptSelf(n,1);
-        for(int i = 0; i < n; i++) {
-            finalProductExceptSelf[i] = leftProductExceptSelf[i] * rightProductExceptSelf[i];
-        }
+        // for(int i = 0; i < n; i++) {
+        //     finalProductExceptSelf[i] = leftProductExceptSelf[i] * rightProductExceptSelf[i];
+        // }        
+        transform(leftProductExceptSelf.begin(), leftProductExceptSelf.end(), rightProductExceptSelf.begin(), finalProductExceptSelf.begin(), multiplies<int>());
         
         return finalProductExceptSelf;
     }

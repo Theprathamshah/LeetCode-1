@@ -11,7 +11,7 @@
 class Solution {
 public:
     ListNode* middleNode(ListNode* head) {
-        
+                       
         ListNode* fast = head;
         ListNode* slow = head;
         
@@ -19,45 +19,7 @@ public:
             fast = fast->next->next;
             slow = slow->next;
         }
-        if(fast->next) {
-            slow = slow->next;
-        }
-        return slow;
         
+        return fast->next ? slow->next : slow;        
     }
 };
-
-/*
-
-fast and slow right..
-
-1 2 3 4 5 N
-|
-|
-  |
-    |
-    |
-       |
-    
-1 2 3 4 5 6 N
-|
-|
---------------
-    |
-  |
---------------
-        |
-    |
---------------
-    
-
-
-
-
-
-
-
-
-
-
-*/

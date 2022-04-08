@@ -15,11 +15,11 @@ public:
         ListNode* fast = head;
         ListNode* slow = head;
         
-        while(fast->next and fast->next->next) {
+        while(fast and fast->next) {
             fast = fast->next->next;
             slow = slow->next;
         }
         
-        return fast->next ? slow->next : slow;        
+        return slow;        
     }
 };

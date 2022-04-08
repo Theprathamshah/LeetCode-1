@@ -32,36 +32,19 @@ class Solution {
 public:
     ListNode* removeElements(ListNode* head, int val) {
         
-        
-        
-        // Let's make a dummy node        
-        ListNode* sentinal = new ListNode(-1);
-        sentinal->next = head;
-        
-        ListNode* current = head;        
-        ListNode* prev = sentinal;
-        ListNode* toDelete = nullptr;
-        
-        while(current) {            
-            if(current->val == val) {
-                prev->next = current->next;                
-                toDelete = current;
+      ListNode *temp = head;
+        while(head && head->val == val){
+            head = head->next;
+        }
+        while(temp && temp->next) {
+            if (temp->next->val == val) {
+                temp->next = temp->next->next;
             }
             else {
-                prev = prev -> next;
+                temp = temp->next;
             }
-            current = current->next;
-            
-            if(toDelete != nullptr) {
-                delete toDelete;
-                toDelete = nullptr;
-            }            
         }
-        ListNode* newHead = sentinal->next;
-        
-        delete sentinal;
-        
-        return newHead;   
+        return head;
     }
 };
 

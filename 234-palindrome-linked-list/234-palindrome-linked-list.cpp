@@ -17,7 +17,8 @@ private:
         if(!root) { return true; }
         
         bool res = helper(root->next);
-        if (!(res and root->val == _h->val)) { return false; }               
+        if(!res) { return false; }       
+        if(root->val != _h->val) { return false; }
         _h = _h->next;
         return true;
     }

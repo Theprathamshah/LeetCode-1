@@ -24,14 +24,9 @@ public:
         // then we can remove that last elment and keep repeating this process until the set is empty
         vector<int> ans;
         while(!s.empty()) {
-            ans.push_back(s.rbegin()->second);
+            ans.push_back(s.rbegin()->second); // first -> count, second -> val
             s.erase(*s.rbegin());
         }        
-        return ans;
-        
-        
-        
-        
-        
+        return ans;        
     }
 };

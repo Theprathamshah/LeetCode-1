@@ -10,64 +10,28 @@ class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
         
-        unordered_map<ListNode*, bool> table;
+        stack<ListNode*> stackA, stackB;
         
-        ListNode * result = nullptr;
-        
-        while(headA and headB and !result) {
-            if(table.count(headA))
-            {
-                result = headA;                
-                break;
-            }
-            table[headA] = true;
-            headA = headA -> next;
-            
-            if(table.count(headB))
-            {
-                result = headB;                
-                break;
-            }
-            
-            table[headB] = true;
-            
-            headB = headB -> next;
+        while(headA) {
+            stackA.push(headA);
+            headA = headA->next;
         }
-        while(headA and !result) {
-            if(table.count(headA)) {
-                result = headA; 
-                break;
-            }
-            table[headA] = true;
-            headA = headA -> next;            
+        while(headB) {
+            stackB.push(headB);
+            headB = headB->next;
         }
-        while(headB and !result) {
-            if(table.count(headB)) {
-                result = headB; 
+        
+        ListNode* tempA;
+        ListNode* tempB;
+        ListNode* answer = nullptr;
+        while(!stackA.empty() and !stackB.empty()) { // while one of them is not empty            
+            tempA = stackA.top(); stackA.pop();
+            tempB = stackB.top(); stackB.pop();
+            if(tempA != tempB) {
                 break;
-            }
-            table[headB] = true;
-            headB = headB -> next;            
+            }            
+            answer = tempA;
         }
-        return result; 
-        
-        
-        
+        return answer;
     }
 };
-
-/*
-
-Think about this recursively. 
-
-the specicial thing about LL is what we see here.. there are 2 LL which we are giving as inputs to our func...
-
-
-
-
-
-
-
-
-
-*/

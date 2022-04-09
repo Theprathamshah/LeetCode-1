@@ -12,10 +12,12 @@ public:
         
         stack<ListNode*> stackA, stackB;
         
-        while(headA) {
+        // Put all the nodes from A into a stack
+        while(headA) { // O(n) time, O(n) space)
             stackA.push(headA);
             headA = headA->next;
         }
+        // Put all the nodes from B into a stack
         while(headB) {
             stackB.push(headB);
             headB = headB->next;
@@ -24,7 +26,7 @@ public:
         ListNode* tempA;
         ListNode* tempB;
         ListNode* answer = nullptr;
-        while(!stackA.empty() and !stackB.empty()) { // while one of them is not empty            
+        while(!stackA.empty() and !stackB.empty()) { // while both of them not empty
             tempA = stackA.top(); stackA.pop();
             tempB = stackB.top(); stackB.pop();
             if(tempA != tempB) {

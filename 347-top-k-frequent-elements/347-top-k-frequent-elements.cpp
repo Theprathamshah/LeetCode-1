@@ -10,23 +10,26 @@ public:
             freq[n]++;
         }
 
-        // Insert pair of <count, val> into the set which will be arranged in ascending order
-        // we will keep this set of size "k"
-        set<pair<int,int>> s;
+        // Insert pair of <count, val> into the min_heap. push() time in a heap is O(NlogN)
+        // we will keep this set of size "k". Everything we will go past size "k", we will pop the min eleemnt.. pop will be in O(1)
+        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
         for (auto& [val, count] : freq) {            
-            s.insert(make_pair(count, val));
-            if (s.size() > k) { // throw out the 1st element as it might have the least count
-                s.erase(s.begin());
+            pq.push(make_pair(count, val));            
+            if (pq.size() > k) { // throw out the 1st element as it might have the least count
+                pq.pop();
             }            
         }
         
         // once we have iterated over the freq map, then we need to iterate over the set from the back (largest will be at the back) and add to the answer.
         // then we can remove that last elment and keep repeating this process until the set is empty
         vector<int> ans;
-        while(!s.empty()) {
-            ans.push_back(s.rbegin()->second); // first -> count, second -> val
-            s.erase(*s.rbegin());
+        while(!pq.empty()) {            
+            ans.push_back(pq.top().second); // first -> count, second -> val
+            pq.pop();
         }        
+        
+        //Reverse the answer
+        reverse(ans.begin(), ans.end());
         return ans;        
     }
 };

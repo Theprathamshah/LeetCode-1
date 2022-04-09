@@ -10,26 +10,43 @@ class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
         
-        unordered_map<ListNode*, bool> table;
-        
-        ListNode * result = nullptr;
-        
-        // Traverse list A till the end
-        while(headA) {
-            table[headA] = true;
-            headA = headA -> next;
+        // Find length of A and B
+        int lenA = 0, lenB = 0;
+        ListNode *tempA = headA;
+        ListNode *tempB = headB;
+        while(tempA) {
+            lenA++;
+            tempA = tempA->next;
+        }
+        while(tempB) {
+            lenB++;
+            tempB = tempB->next;
         }
         
+        // Goal is to advance the pointer of the longer list such that both pointers start at the same distance from the end. whenever the values are the same, it means that's the intersection point
         
-        // Now traverse list B. And check for nodes in the table. if something is found then that's the interaction point.
-        while(headB) {
-            if(table.count(headB)) {
-                return headB;
+        int delta = abs(lenA-lenB);
+        if (lenA > lenB) {
+            while(delta--) {                
+                headA = headA->next;
             }
-            headB = headB -> next;            
+        }
+        else {
+            while(delta--) {                
+                headB = headB->next;
+            }            
         }
         
-        // if we get here, it measn we must have traversed list B also and didn't find any common node    
-        return nullptr; 
+        // now head A and head B are the same distance from the end
+        while(headA and headB) {
+            if(headA == headB) {
+                return headA;
+            }
+            headA = headA->next;
+            headB = headB->next;
+        }
+        
+        // If we get here means no intersection
+        return nullptr;
     }
 };

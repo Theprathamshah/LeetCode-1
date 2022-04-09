@@ -28,8 +28,8 @@ public:
             pq.pop();
         }        
         
-        //Reverse the answer
-        // reverse(ans.begin(), ans.end());
+        // The question is asking top K (in any order) so we can return ans.. if it was asking in the order of greatest to smallest, then we needed to reverse the vector
+        reverse(ans.begin(), ans.end());
         return ans;        
     }
 };

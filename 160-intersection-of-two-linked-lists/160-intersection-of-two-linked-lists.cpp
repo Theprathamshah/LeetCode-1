@@ -10,30 +10,26 @@ class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
         
-        stack<ListNode*> stackA, stackB;
+        unordered_map<ListNode*, bool> table;
         
-        // Put all the nodes from A into a stack
-        while(headA) { // O(n) time, O(n) space)
-            stackA.push(headA);
-            headA = headA->next;
+        ListNode * result = nullptr;
+        
+        // Traverse list A till the end
+        while(headA) {
+            table[headA] = true;
+            headA = headA -> next;
         }
-        // Put all the nodes from B into a stack
+        
+        
+        // Now traverse list B. And check for nodes in the table. if something is found then that's the interaction point.
         while(headB) {
-            stackB.push(headB);
-            headB = headB->next;
+            if(table.count(headB)) {
+                return headB;
+            }
+            headB = headB -> next;            
         }
         
-        ListNode* tempA;
-        ListNode* tempB;
-        ListNode* answer = nullptr;
-        while(!stackA.empty() and !stackB.empty()) { // while both of them not empty
-            tempA = stackA.top(); stackA.pop();
-            tempB = stackB.top(); stackB.pop();
-            if(tempA != tempB) {
-                break;
-            }            
-            answer = tempA;
-        }
-        return answer;
+        // if we get here, it measn we must have traversed list B also and didn't find any common node    
+        return nullptr; 
     }
 };

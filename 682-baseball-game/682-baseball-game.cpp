@@ -13,14 +13,12 @@ public:
                     break;
                 case '+':
                     a = mystack.top();mystack.pop();
-                    b = mystack.top();mystack.pop();
-                    mystack.push(b);
+                    b = mystack.top();
                     mystack.push(a);
                     mystack.push(a+b);
                     break;
                 case 'D':
-                    a = mystack.top();mystack.pop();
-                    mystack.push(a);
+                    a = mystack.top();
                     mystack.push(a*2);
                     break;
                 default:

@@ -43,29 +43,29 @@ public:
         
         ListNode* mid = getMid(head);
         
-        ListNode* mid_next = mid->next;
+        ListNode* newHead = mid->next;
         mid->next = nullptr;
         
-        ListNode* tail = reverse(mid_next);
+        newHead = reverse(newHead);
         
-        ListNode* head_temp = head;
-        ListNode* fwd_h, *fwd_t;
-        while(head_temp and tail) {
+        ListNode* headA = head;
+        ListNode* headB = newHead;
+        ListNode *fwdA, *fwdB;
+        
+        while(headB) {
             
             // Save fwd
-            fwd_h = head_temp->next;
-            fwd_t = tail->next;
+            fwdA = headA->next;
+            fwdB = headB->next;
             
             // Update links
-            head_temp->next = tail;
-            tail->next = fwd_h;
+            headA->next = headB;
+            headB->next = fwdA;
             
             // Move
-            head_temp = fwd_h;
-            tail = fwd_t;            
+            headA = fwdA;
+            headB = fwdB;            
         }
-        return;
-        
-        
+        return;        
     }
 };

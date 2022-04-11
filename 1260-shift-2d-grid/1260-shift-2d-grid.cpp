@@ -5,25 +5,26 @@ public:
         int nRows = grid.size();
         int nCols = grid[0].size();
         
-        k = k % (nRows*nCols);
-        
-        vector<vector<int>> result(nRows, vector<int>(nCols));
-        
-        int g_1d, r_1d, r_c, r_r;
+        vector<vector<int>> answer(nRows, vector<int>(nCols));       
+        int g_1d, a_1d, a_c, a_r;
         
         for(int g_r = 0; g_r < nRows; g_r++) {
             for(int g_c = 0; g_c < nCols; g_c++) {
                 
+                // Convert (r,c) into its 1D index in the grid vector
                 g_1d = g_r * nCols +  g_c;
                 
-                r_1d = (g_1d + k) % (nRows*nCols);
+                // Apply offset to obtain the 1D index in the answer vector
+                a_1d = (g_1d + k) % (nRows*nCols);
                 
-                r_r = r_1d/nCols;
-                r_c = r_1d%nCols; 
+                // Convert the 1D index back to the 2D represention in the answer vector
+                a_r = a_1d / nCols;
+                a_c = a_1d % nCols; 
                 
-                result[r_r][r_c] = grid[g_r][g_c];                
+                // (g_r, g_c) + offset --> (a_r, a_c)
+                answer[a_r][a_c] = grid[g_r][g_c];                
             }
         }
-        return result;        
+        return answer;        
     }
 };

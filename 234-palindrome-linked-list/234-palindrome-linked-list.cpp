@@ -40,7 +40,7 @@ private:
     
     bool helper(ListNode* headA, ListNode* headB) {
         
-        while(headA) {
+        while(headB) {
             if (headA->val != headB->val) { return false; }
             headA = headA->next;
             headB = headB->next;
@@ -54,8 +54,18 @@ public:
     bool isPalindrome(ListNode* head) {
         
         ListNode* mid = getMid(head);        
-        ListNode* tail = reverse(mid);
         
-        return helper(head, tail);
+        ListNode* mid_next = mid->next;  
+        mid->next = nullptr;
+        
+        ListNode* tail = reverse(mid_next);
+        
+        bool answer = helper(head, tail);
+        
+        ListNode* mid_next_recovered = reverse(tail);
+        mid->next = mid_next_recovered;
+        
+        return answer;
+        
     }
 };

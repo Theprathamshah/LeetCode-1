@@ -13,24 +13,24 @@ public:
     ListNode* reverseList(ListNode* head) {
         
         if(!head) { return nullptr; }
-        if(!head->next) { return head; }
         
+        ListNode* prev = nullptr;    
+        ListNode* frwd = nullptr;    
+        ListNode* curr = head;       
         
-        ListNode* p = nullptr;    // prev
-        ListNode* c = head;       // current
-        ListNode* n = c->next; // next
-        
-        head->next = nullptr;
-        
-        while(n) {
+        while(curr) {            
+            // Save the next step before switching over the link            
+            frwd = curr->next;
             
-            p = c;
-            c = n;            
-            n = n->next;
-            c->next = p;
+            // SWtich the link!
+            curr->next = prev;
+            
+            // Move prev and curr by 1 to the left
+            prev = curr;
+            curr = frwd;            
         }
         
-        return c;
+        return prev;
         
     }
 };

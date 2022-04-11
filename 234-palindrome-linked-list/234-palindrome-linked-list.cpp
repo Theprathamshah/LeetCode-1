@@ -9,24 +9,53 @@
  * };
  */
 class Solution {
-    
 private:
-    ListNode* _h;
-    bool helper(ListNode* root) {
+    ListNode* getMid(ListNode* head) { // for a linked list of even size, return the 1st mid element        
+        if(!head or !head->next) {return head; }        
+        ListNode* fast = head;
+        ListNode* slow = head;        
+        while(fast->next and fast->next->next) {
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+        return slow;
+    }
+    
+    ListNode* reverse(ListNode* head) {
+        if(!head or !head->next) {return head; }        
+     
         
-        if(!root) { return true; }
+        ListNode* curr = head;
+        ListNode* prev = nullptr;
+        ListNode* fwd = nullptr;
         
-        bool res = helper(root->next);
-        if(!res) { return false; }       
-        if(root->val != _h->val) { return false; }
-        _h = _h->next;
+        while(curr) {
+            fwd = curr->next;            
+            curr->next = prev;            
+            prev = curr;
+            curr = fwd;            
+        }
+        return prev;
+    }
+    
+    bool helper(ListNode* headA, ListNode* headB) {
+        
+        while(headA) {
+            if (headA->val != headB->val) { return false; }
+            headA = headA->next;
+            headB = headB->next;
+        }
         return true;
     }
+    
+    
+    
 public:
     bool isPalindrome(ListNode* head) {
         
-        _h = head;
-        return helper(head);
-
+        ListNode* mid = getMid(head);        
+        ListNode* tail = reverse(mid);
+        
+        return helper(head, tail);
     }
 };

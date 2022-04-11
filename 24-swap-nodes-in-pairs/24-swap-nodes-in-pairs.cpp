@@ -15,21 +15,22 @@ public:
         while(!head or !head->next) {return head; }
         
         ListNode* dummy = new ListNode(-1);
+        dummy->next = head;
         
-        ListNode* prev = dummy;
-        prev->next = head;
+        // Define prev,curr and fwd pointers
+        ListNode* prev = dummy;       
         ListNode* curr = head;
         ListNode* fwd = nullptr;
         
-        // 
+        // Prepare the new Head
         ListNode* newHead = curr->next;
         
         while(curr and curr->next) {
             
-            // Initialize pointers
+            // Initialize fwd (we know it will be valid coz we already checked for it in the while above)
             fwd = curr->next;
             
-            // Update pointers
+            // Update links
             curr->next = fwd->next;
             fwd->next = curr;
             prev->next = fwd;

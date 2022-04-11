@@ -14,7 +14,9 @@ public:
         
         while(!head or !head->next) {return head; }
         
-        ListNode* prev = new ListNode(-1);
+        ListNode* dummy = new ListNode(-1);
+        
+        ListNode* prev = dummy;
         prev->next = head;
         ListNode* curr = head;
         ListNode* fwd = nullptr;
@@ -37,6 +39,7 @@ public:
             curr = curr->next;
         }
         
+        delete dummy;
         
         return newHead;
         

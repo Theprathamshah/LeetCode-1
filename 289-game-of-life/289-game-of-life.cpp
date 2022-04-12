@@ -5,7 +5,7 @@ public:
         int m = board.size();
         int n = board[0].size();
         
-        vector<vector<int>> temp(m, vector<int>(n));
+        // vector<vector<int>> temp(m, vector<int>(n));
                         
         for(int i = 0; i < m; i++) {
             for(int j = 0; j < n; j++) {

@@ -12,8 +12,7 @@ public:
                 
                 //delta to go to neighbor
                 vector<int> x_dir = {-1,-1, 0, 1, 1, 1, 0,-1};
-                vector<int> y_dir = { 0, 1, 1, 1, 0,-1,-1,-1};
-                
+                vector<int> y_dir = { 0, 1, 1, 1, 0,-1,-1,-1};                
                 
                 // Count live and dead neighbours
                 for(int z = 0; z < x_dir.size(); z++) {
@@ -50,9 +49,9 @@ public:
         
         // Update -1 and 2 back to their final value
         for(int i = 0; i < m; i++) {
-            for(int j = 0; j < n; j++) {                
-                board[i][j] = board[i][j] == 2 ? 0 : board[i][j];
-                board[i][j] = board[i][j] == -1 ? 1 : board[i][j];            
+            for(int j = 0; j < n; j++) {     
+                if(board[i][j] == 2) { board[i][j] = 0; }
+                else if(board[i][j] == -1) { board[i][j] = 1; }                
             }
         }
     }

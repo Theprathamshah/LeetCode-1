@@ -30,10 +30,7 @@ public:
         ListNode* hi = nullptr;
         ListNode* prevLo = nullptr;
         ListNode* fwdHi = nullptr;
-        
-        // ListNode* dummy = new ListNode(-1);
-        // dummy->next = head;
-        
+               
         ListNode* prev = nullptr;        
         ListNode* curr = head;        
         
@@ -48,9 +45,7 @@ public:
                 fwdHi = curr->next;
                 hi = curr;
                 break;
-            }     
-            
-            //Move curr and pre by 1
+            }                 
             prev = curr;
             curr = curr->next;
             counter++;

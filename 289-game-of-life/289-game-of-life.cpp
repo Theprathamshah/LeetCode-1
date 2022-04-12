@@ -10,9 +10,6 @@ public:
         vector<int> x_dir = {-1,-1, 0, 1 ,1,  1,  0, -1};
         vector<int> y_dir = { 0, 1, 1, 1 ,0, -1, -1, -1};
         
-        int x_temp;
-        int y_temp;
-        
         for(int i = 0; i < m; i++) {
             for(int j = 0; j < n; j++) {
                 
@@ -21,8 +18,9 @@ public:
                 
                 // Count live and dead neighbours
                 for(int z = 0; z < x_dir.size(); z++) {
-                    x_temp = i + x_dir[z]; 
-                    y_temp = j + y_dir[z]; 
+        
+                    int x_temp = i + x_dir[z]; 
+                    int y_temp = j + y_dir[z]; 
                     
                     if( x_temp >= 0 and x_temp < m and y_temp >= 0 and y_temp < n) {
                         board[x_temp][y_temp] == 0 ? count_0++ : count_1++;                    

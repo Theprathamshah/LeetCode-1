@@ -28,17 +28,19 @@ public:
                 }
                 
                 // Take a snapshot
-                temp[i][j] = board[i][j];
+                temp[i][j] = board[i][j];                
                 
-                
-                if(board[i][j] == 1) { // Any live cell with - 
-                    //1. fewer than two live neighbors dies as if caused by under-population.
-                    //3. more than three live neighbors dies, as if by over-population.
+                // Update the result for the following
+                if(board[i][j] == 1) { 
+                    
+                    // #1 and #3
                     if(count_1 < 2 or count_1 > 3) {
                         temp[i][j] = 0;
-                    }                    
+                    }    
+                    // #2 doesn't need to be handled seperately
                 } 
-                else { // 4. Any dead cell with -
+                else { 
+                    // #4
                     if(count_1 == 3) {
                         temp[i][j] = 1;
                     }

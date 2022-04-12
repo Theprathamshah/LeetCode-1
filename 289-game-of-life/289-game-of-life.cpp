@@ -24,42 +24,35 @@ public:
                     
                     if( x_temp >= 0 and x_temp < m and y_temp >= 0 and y_temp < n) {
                         
-                        if(board[x_temp][y_temp] > 0){
+                        if(board[x_temp][y_temp] > 0){ // >0 means, it will work for both 1 and 2 (1-->0, but not yet)
                             count_1++;
                         }   
                     }                    
-                }
+                }           
                 
-                // Take a snapshot of the cell's value
-                // temp[i][j] = board[i][j];                
-                
-                // Update the snapshot for the following cases
+                // Update the values for the following cases
                 if(board[i][j] > 0) { 
                     
                     // #1 and #3
                     if(count_1 < 2 or count_1 > 3) {
-                        board[i][j] = 2;
+                        board[i][j] = 2; // If a 1 --> 0, we store the value temporarily > 0. As 1 is taken, we use 2.
                     }    
                     // #2 doesn't need to be handled seperately
                 } 
                 else { 
                     // #4
                     if(count_1 == 3) {
-                        board[i][j] = -1;
+                        board[i][j] = -1; // If a 0 --> 1, we store the value temporarily < 0. As 0 is taken, we use -1.
                     }
                 }
             }
         }
         
-        // temp has the snapshop. copy it back to board
+        // Update -1 and 2 back to their final value
         for(int i = 0; i < m; i++) {
-            for(int j = 0; j < n; j++) {
-                if(board[i][j] == 2){
-                    board[i][j] = 0;
-                }
-                else if(board[i][j] == -1) {
-                    board[i][j] = 1;
-                }
+            for(int j = 0; j < n; j++) {                
+                board[i][j] = board[i][j] == 2 ? 0 : board[i][j];
+                board[i][j] = board[i][j] == -1 ? 1 : board[i][j];            
             }
         }
     }

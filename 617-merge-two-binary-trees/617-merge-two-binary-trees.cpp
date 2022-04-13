@@ -15,13 +15,14 @@ public:
         
         if(!root1 and !root2) { return nullptr; }
         
-        TreeNode* node = new TreeNode();
+        int val = (root1 ? root1->val : 0) + (root2 ? root2->val : 0);        
+        TreeNode* left = mergeTrees(root1 ? root1->left : nullptr , root2 ? root2->left : nullptr);
+        TreeNode* right = mergeTrees(root1 ? root1->right : nullptr , root2 ? root2->right : nullptr);
         
-        node->val = (root1 == nullptr ? 0 : root1->val) + (root2 == nullptr ? 0 : root2->val);
+        TreeNode* root = new TreeNode(val, left, right);
         
-        node->left = mergeTrees(root1 == nullptr ? nullptr : root1->left, root2 == nullptr ? nullptr : root2->left);
-        node->right = mergeTrees(root1 == nullptr ? nullptr : root1->right, root2 == nullptr ? nullptr : root2->right);
+        return root;
         
-        return node;
+        
     }
 };

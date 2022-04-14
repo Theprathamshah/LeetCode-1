@@ -26,7 +26,7 @@ public:
             
             root = mystack.top(); mystack.pop();
             
-            //Go right
+            // Go right (this is important, as we want to explore left first so it should be above on the stack)
             if(root->right) {
                 mystack.push(root->right);
             }
@@ -35,8 +35,7 @@ public:
             if(root->left) {
                 mystack.push(root->left);
             }
-            
-            
+                        
             // Add root to the answer
             answer.push_back(root->val);
         }

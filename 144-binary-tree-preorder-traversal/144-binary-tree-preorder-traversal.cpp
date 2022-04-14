@@ -10,27 +10,36 @@
  * };
  */
 class Solution {
-private:
-    vector<int> _answer;
-    
-    void helper(TreeNode* root) {
-        
-        if(!root) { return;}
-        
-        // Insert root first
-        _answer.push_back(root->val);
-        // Insert left child after root
-        helper(root->left);
-        // Insert right child after left
-        helper(root->right);
-    }
-    
 public:
     vector<int> preorderTraversal(TreeNode* root) {
         
-        helper(root);        
-        return _answer;
+        vector<int> answer;
+        if(!root) {
+            return answer;
+        }
+        
+        stack<TreeNode*> mystack;
+        
+        mystack.push(root);
+        
+        while(!mystack.empty()) {
+            
+            root = mystack.top(); mystack.pop();
+            
+            //Go right
+            if(root->right) {
+                mystack.push(root->right);
+            }
+            
+            //Go left
+            if(root->left) {
+                mystack.push(root->left);
+            }
+            
+            
+            // Add root to the answer
+            answer.push_back(root->val);
+        }
+        return answer;
     }
 };
-
-// root -> left -> right..?

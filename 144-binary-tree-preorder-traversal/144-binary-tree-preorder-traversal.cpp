@@ -13,32 +13,28 @@ class Solution {
 public:
     vector<int> preorderTraversal(TreeNode* root) {
         
-        vector<int> answer;
         if(!root) {
-            return answer;
+            vector<int> result = {};
+            return result;
         }
         
-        stack<TreeNode*> mystack;
+        int val = root->val;
+        vector<int> left = preorderTraversal(root->left);
+        vector<int> right = preorderTraversal(root->right);
         
-        mystack.push(root);
+        // Re-allocate space big enough for the children and yourself
+        left.reserve(left.size() + right.size() + 1);
         
-        while(!mystack.empty()) {
-            
-            root = mystack.top(); mystack.pop();
-            
-            // Go right (this is important, as we want to explore left first so it should be above on the stack)
-            if(root->right) {
-                mystack.push(root->right);
-            }
-            
-            //Go left
-            if(root->left) {
-                mystack.push(root->left);
-            }
-                        
-            // Add root to the answer
-            answer.push_back(root->val);
-        }
-        return answer;
+        // Insert val before left
+        left.insert(left.begin() ,val);
+        // Insert right after left
+        left.insert(left.end(), right.begin(), right.end());
+        
+        // root -> left -> right
+        
+        return left;
+        
     }
 };
+
+// root -> left -> right..?

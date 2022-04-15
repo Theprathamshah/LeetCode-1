@@ -5,36 +5,32 @@ public:
         // Definations
         int sumOfProducts = 0;
         
-        //freq 2 - as we can't touch nums2
-        vector<int> freq2(101);
-        for(int i = 0; i < nums1.size(); i++) {
+        //freq 1
+        vector<int> freq1(101), freq2(101); // this will take space
+        
+        for(int i = 0; i < nums1.size(); i++) { // O(n)
+            freq1[nums1[i]]++;
             freq2[nums2[i]]++;
         } 
         
-        //sort nums1
-        sort(nums1.begin(), nums1.end());
+        int lo = 1, hi = 100;
         
-        
-        int hi = 100;
-        int idx = 0;
-        
-        while(hi >= 1) {
+        while(lo <= 100 and hi >= 1) {
             
-            
+            while(lo <= 100 and freq1[lo] == 0) {
+                lo++;
+            }
             while(hi >= 1 and freq2[hi] == 0) {
                 hi--;
             }  
             
-            if((hi == 0) or idx > nums1.size()) {
+            if((lo == 101) or (hi == 0)) {
                 break;
             }
             
-            sumOfProducts += nums1[idx]*hi;
-            
+            sumOfProducts += lo*hi;
+            freq1[lo]--;
             freq2[hi]--;            
-            
-            idx++;
-            
         }
         return sumOfProducts;
        

@@ -14,13 +14,15 @@ public:
         } 
         
         int lo = 1, hi = 100;
-        
+        int count;
         while(lo <= 100 and hi >= 1) {
   
             if(freq1[lo] > 0 and freq2[hi] > 0){
-                sumOfProducts += lo*hi;
-                freq1[lo]--;
-                freq2[hi]--; 
+                
+                count = min(freq1[lo], freq2[hi]); // optimization              
+                sumOfProducts += lo*hi*count;
+                freq1[lo] -= count;
+                freq2[hi] -= count;
                 
             }
             if(freq1[lo]==0) lo++;

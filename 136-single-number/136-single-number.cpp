@@ -2,43 +2,14 @@ class Solution {
 public:
     int singleNumber(vector<int>& nums) {
         
-        int result = 0;
-        for (auto& num : nums) {            
-            result ^= num;            
+        int answer = 0; //xor everything. Everything will cancel out with each other.. only the non-dulicate will remain
+        
+        for (auto&n: nums) {
+            answer ^= n;
         }
         
-        //  every element appears twice will be zeroed above.
-        // result will store just the number which doesnt appear tweice
+        return answer;
         
-        return result;
         
     }
 };
-
-/*
-
-XOR everything
-
-010
-010
-----
-
-
-000
-010
----
-010
-010
-
-001
-
-
-
-
-
-
-
-
-
-
-*/

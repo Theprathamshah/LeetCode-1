@@ -1,36 +1,23 @@
 class Solution {
 public:
     bool containsDuplicate(vector<int>& nums) {
-        
-        unordered_map<int, bool> seen; // number and seen
-        
-        for (auto& num : nums) {
-            if(seen.count(num)) {
+        unordered_map<int,bool> map;
+        for(auto&num : nums) {
+            if(map.count(num) > 0) {
                 return true;
             }
-            seen[num] = true;
+            map[num] = true;
         }
         return false;
     }
 };
 
 /*
-Givem:
- - any number can appear in the array (+ve / -ve)
- - therefore, we cant do the index to freq mapping
- 
- we can se a simple unordered_map
 
+-109 <= nums[i] <= 109
+1 <= nums.length <= 105
 
-
-
-
-
-
-
-
-
-
+a simle soln is using a hashmap..
 
 
 

@@ -5,18 +5,34 @@ public:
         // Definations
         int sumOfProducts = 0;
         
-        vector<vector<int>> map(100, vector<int>()); // so this takes up space.. and is not constant..
+        //freq 1
+        vector<int> freq1(101), freq2(101);
+        for(int i = 0; i < nums1.size(); i++) {
+            freq1[nums1[i]]++;
+            freq2[nums2[i]]++;
+        } 
         
+        int lo = 1, hi = 100;
         
-        
-        sort(nums1.begin(), nums1.end());
-        sort(nums2.begin(), nums2.end(), greater<int>());
-        
-        for(int i=0; i < nums1.size(); i++) {
-            sumOfProducts += nums1[i] * nums2[i];
+        while(lo <= 100 and hi >= 1) {
+            
+            while(lo <= 100 and freq1[lo] == 0) {
+                lo++;
+            }
+            while(hi >= 1 and freq2[hi] == 0) {
+                hi--;
+            }  
+            
+            if((lo == 101) or (hi == 0)) {
+                break;
+            }
+            
+            sumOfProducts += lo*hi;
+            freq1[lo]--;
+            freq2[hi]--;            
         }
-        
         return sumOfProducts;
+       
     }
 };
 

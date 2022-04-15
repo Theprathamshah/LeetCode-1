@@ -5,7 +5,7 @@ public:
         // Definations
         int sumOfProducts = 0;
         
-        vector<vector<int>> map(100, vector<int>(10^5));
+        vector<vector<int>> map(100, vector<int>()); // so this takes up space.. and is not constant..
         
         
         

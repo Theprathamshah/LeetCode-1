@@ -12,12 +12,12 @@
 class Solution {
 private:
     struct Info {
-        bool isbalanced;
         int height;
+        bool isbalanced;        
     };
     Info helper(TreeNode* root) {
         
-        Info info{true, 0};
+        Info info{0, true};
         if(!root) { return info; }
         
         Info left = helper(root->left);

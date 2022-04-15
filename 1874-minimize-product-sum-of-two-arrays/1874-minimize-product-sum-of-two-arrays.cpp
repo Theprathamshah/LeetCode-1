@@ -6,29 +6,34 @@ public:
         int sumOfProducts = 0;
         
         //freq 1
-        vector<int> freq1(101), freq2(101); // this will take space
-        
-        for(int i = 0; i < nums1.size(); i++) { // O(n)
+        vector<int> freq1(101), freq2(101);
+        for(int i = 0; i < nums1.size(); i++) {
             freq1[nums1[i]]++;
             freq2[nums2[i]]++;
         } 
         
         int lo = 1, hi = 100;
-        int count;
+        int commonCount = 1;
+        
         while(lo <= 100 and hi >= 1) {
-  
-            if(freq1[lo] > 0 and freq2[hi] > 0){
-                
-                count = min(freq1[lo], freq2[hi]); // optimization              
-                sumOfProducts += lo*hi*count;
-                freq1[lo] -= count;
-                freq2[hi] -= count;
-                
+            
+            while(lo <= 100 and freq1[lo] == 0) {
+                lo++;
             }
-            if(freq1[lo]==0) lo++;
-            if(freq2[hi]==0) hi--;
+            while(hi >= 1 and freq2[hi] == 0) {
+                hi--;
+            }  
+            
+            if((lo == 101) or (hi == 0)) {
+                break;
+            }
+            
+            commonCount = min(freq1[lo], freq2[hi]); // optmization
+            
+            sumOfProducts += lo*hi*commonCount;
+            freq1[lo] -= commonCount;
+            freq2[hi] -= commonCount;            
         }
-
         return sumOfProducts;
        
     }

@@ -16,22 +16,17 @@ public:
         int lo = 1, hi = 100;
         
         while(lo <= 100 and hi >= 1) {
-            
-            while(lo <= 100 and freq1[lo] == 0) {
-                lo++;
+  
+            if(freq1[lo] > 0 and freq2[hi] > 0){
+                sumOfProducts += lo*hi;
+                freq1[lo]--;
+                freq2[hi]--; 
+                
             }
-            while(hi >= 1 and freq2[hi] == 0) {
-                hi--;
-            }  
-            
-            if((lo == 101) or (hi == 0)) {
-                break;
-            }
-            
-            sumOfProducts += lo*hi;
-            freq1[lo]--;
-            freq2[hi]--;            
+            if(freq1[lo]==0) lo++;
+            if(freq2[hi]==0) hi--;
         }
+
         return sumOfProducts;
        
     }

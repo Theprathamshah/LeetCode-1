@@ -1,15 +1,15 @@
 class Solution {
 private:
     int ROW_MIN, COL_MIN, ROW_MAX, COL_MAX;
-    bool isValidCell(int i, int j) {        
-        return (i >= ROW_MIN and i <= ROW_MAX and j >= COL_MIN and j <= COL_MAX) ? true : false;        
+    bool isValidCell(vector<vector<char>>& grid, int i, int j) {        
+        return (i >= ROW_MIN and i <= ROW_MAX and j >= COL_MIN and j <= COL_MAX and grid[i][j] == '1') ? true : false;        
     }
     void dfs(vector<vector<char>>& grid, int i, int j) {
         
-        if(!isValidCell(i,j)) {return;}
+        if(!isValidCell(grid, i,j)) {return;}
         
         // If this cell is water, we can simply return without doing anything
-        if(grid[i][j] == '0') { return; }
+        // if(grid[i][j] == '0') { return; }
         
         // If we get here, means we are at land. now we need to explore all the neighboring cells so se how big is our island.
         

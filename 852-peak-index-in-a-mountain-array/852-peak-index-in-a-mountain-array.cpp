@@ -10,7 +10,7 @@ public:
             
             mid = lo + (hi-lo)/2;
             
-            if(arr[mid] < arr[mid+1]) { // peak is on the right for sure...
+            if(mid < arr.size() and arr[mid] < arr[mid+1]) { // peak is on the right for sure...
                 lo = mid + 1;                
             }
             else { // i am in the peak or the peak is on the left of me

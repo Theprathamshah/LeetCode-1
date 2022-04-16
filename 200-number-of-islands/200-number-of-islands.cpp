@@ -1,7 +1,7 @@
 class Solution {
 private:
     int ROW_MIN, COL_MIN, ROW_MAX, COL_MAX;
-    bool isValidLand(vector<vector<char>>& grid, int i, int j) {        
+    bool isValidLandCell(vector<vector<char>>& grid, int i, int j) {        
         return (i >= ROW_MIN and i <= ROW_MAX and j >= COL_MIN and j <= COL_MAX and grid[i][j] == '1') ? true : false;        
     }
     void dfs(vector<vector<char>>& grid, int i, int j) {
@@ -14,7 +14,7 @@ private:
         array<int,4> di = {-1, 0, 1, 0};
         array<int,4> dj = {0, 1, 0, -1};        
         for(int k = 0; k < di.size(); k++) {
-            if(isValidLand(grid,i + di[k], j + dj[k])) {
+            if(isValidLandCell(grid,i + di[k], j + dj[k])) {
                 dfs(grid, i + di[k], j + dj[k]);    
             }            
         }        

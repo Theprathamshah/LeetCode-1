@@ -22,11 +22,14 @@ private:
     
 public:
     int numIslands(vector<vector<char>>& grid) {
-                
-        ROW_MIN = 0; COL_MIN = 0; ROW_MAX = grid.size() - 1; COL_MAX = grid[0].size() - 1;
         
+        // Definations        
+        ROW_MIN = 0; COL_MIN = 0; ROW_MAX = grid.size() - 1; COL_MAX = grid[0].size() - 1;        
+        
+        // Answer
         int numIslands = 0;
         
+        // Explore
         for (int i = ROW_MIN; i <= ROW_MAX; i++) {
             for (int j = COL_MIN; j <= COL_MAX; j++) {
                 

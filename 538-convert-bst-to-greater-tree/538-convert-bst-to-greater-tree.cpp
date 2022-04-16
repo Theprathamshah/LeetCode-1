@@ -11,30 +11,25 @@
  */
 
 
-// 
+
 
 class Solution {
 private:
-    
+    /*
+    return: Sum of left node's total
+    */
     int helper(TreeNode* root, int parentNewVal) {
         
-        if(!root) {return parentNewVal;}
+        if(!root) {return 0;}
         
-        int rightSum = helper(root->right, parentNewVal); // This is the sum of all my right children. And I know in a BST, this is going to be greater than me!
-        
+        // In a BST, we know our "right" child will have a value "greater" than us. So, we know, whatver, we receive from our right child, we can add to our own value to get the greater value.        
+        int rightSum = root->right ? helper(root->right, parentNewVal) : parentNewVal;         
         root->val += rightSum;
         
-        int leftSum = helper(root->left, root->val);
+        // In a BST, we know our "left" child will have a value "smaller" than us. Therefore, we need to tell our value to the left child, so it can use it wisely. Now a wise thing for my left child will be to pass it on to its right child because the right child of my left will still be smaller than me. 
+        int leftSum = root->left ? helper(root->left, root->val) : root->val;
         
         return leftSum;
-        
-        
-        
-        
-        
-        
-        
-        
     }
 
     

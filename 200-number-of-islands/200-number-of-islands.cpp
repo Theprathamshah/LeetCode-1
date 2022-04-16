@@ -6,14 +6,11 @@ private:
     }
     void dfs(vector<vector<char>>& grid, int i, int j) {
         
-        // if(!isValidLand(grid, i,j)) {return;}
-            
-        // If we get here, means we are at a valid land. now we need to explore all the neighboring cells to see how big is our island.
-        
         // first thing we will do is to mark ourselves as visited
+        // Also, we don't have to worry about the base case because are checking the validity of this being a land cell from the caller side itself
         grid[i][j] = '0';
         
-        // Now lets explore our neighbors. If we find a land, we will keep marking it as 0 so we don't keep going back and forth!
+        // Now lets explore our neighbors if they are valid land cells.
         array<int,4> di = {-1, 0, 1, 0};
         array<int,4> dj = {0, 1, 0, -1};        
         for(int k = 0; k < di.size(); k++) {
@@ -21,8 +18,7 @@ private:
                 dfs(grid, i + di[k], j + dj[k]);    
             }            
         }        
-    }
-    
+    }    
     
 public:
     int numIslands(vector<vector<char>>& grid) {
